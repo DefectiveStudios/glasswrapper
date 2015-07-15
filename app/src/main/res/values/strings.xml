@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">BotBlaster</string>
+  <string name="tap_for_options">Tap for options</string>
+  <string name="new_game">New Game</string>
+  <string name="instructions">Instructions</string>
+  <string-array name="tutorial_phrases">
+      <item>Move your head to look around</item>
+      <item>Tap the touch pad to shoot</item>
+      <item>Find the blue barrels to slow down time</item>
+      <item>Swipe down to exit</item>
+      <item>Sometimes you have to try a few times</item>
+      <item>Sorry about that...</item>
+      <item>Also, don\'t play while charging. Glass will overheat</item>
+      <item>Sorry about that...</item>
+  </string-array>
+</resources>
