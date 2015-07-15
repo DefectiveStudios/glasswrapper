@@ -7,6 +7,7 @@ import android.app.NativeActivity;
 import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -77,7 +78,7 @@ public class UnityPlayerNativeActivity extends NativeActivity
 
 	// For some reason the multiple keyevent type is not supported by the ndk.
 	// Force event injection by overriding dispatchKeyEvent().
-	@Override public boolean dispatchKeyEvent(KeyEvent event)
+	@Override public boolean dispatchKeyEvent(@NonNull KeyEvent event)
 	{
 		if (event.getAction() == KeyEvent.ACTION_MULTIPLE)
 			return mUnityPlayer.injectEvent(event);
@@ -85,8 +86,8 @@ public class UnityPlayerNativeActivity extends NativeActivity
 	}
 
 	// Pass any events not handled by (unfocused) views straight to UnityPlayer
-	@Override public boolean onKeyUp(int keyCode, KeyEvent event)     { return mUnityPlayer.injectEvent(event); }
-	@Override public boolean onKeyDown(int keyCode, KeyEvent event)   {	return mUnityPlayer.injectEvent(event); }
+	@Override public boolean onKeyUp(int keyCode, @NonNull KeyEvent event)     { return mUnityPlayer.injectEvent(event); }
+	@Override public boolean onKeyDown(int keyCode, @NonNull KeyEvent event)   {	return mUnityPlayer.injectEvent(event); }
 	@Override public boolean onTouchEvent(MotionEvent event)          { return mUnityPlayer.injectEvent(event); }
 	/*API12*/ public boolean onGenericMotionEvent(MotionEvent event)  {
         mGestureDetector.onMotionEvent(event);

@@ -31,5 +31,6 @@ android {
 }
 
 dependencies {
+    compile 'com.android.support:support-annotations:20.0.0'
     provided fileTree(include: ['*.jar'], dir: 'libs')
 }
