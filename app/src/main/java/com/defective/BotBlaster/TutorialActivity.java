@@ -20,17 +20,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
-import android.content.Context;
-import android.media.AudioManager;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.ViewFlipper;
 
-import com.google.android.glass.media.Sounds;
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 

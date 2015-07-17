@@ -4,22 +4,40 @@ import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 import com.unity3d.player.*;
 import android.app.NativeActivity;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.PixelFormat;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+
 
 public class UnityPlayerNativeActivity extends NativeActivity
 {
 	protected UnityPlayer mUnityPlayer;		// don't change the name of this variable; referenced from native code
 
 	private GestureDetector mGestureDetector;
+	private SensorManager mSensorManager;
+	boolean mHasInterference;
+	private SensorEventListener mSensorListener = new SensorEventListener() {
+
+		@Override
+		public void onAccuracyChanged(Sensor sensor, int accuracy) {
+			if (sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
+				UnityPlayer.UnitySendMessage("Main Camera", "SetAccuracy", accuracy + "");
+			}
+		}
+
+		@Override
+		public void onSensorChanged(SensorEvent event) {}
+	};
 	// Setup activity layout
 	@Override protected void onCreate (Bundle savedInstanceState)
 	{
@@ -39,6 +57,11 @@ public class UnityPlayerNativeActivity extends NativeActivity
 		mUnityPlayer.requestFocus();
 
         mGestureDetector = new GestureDetector(this).setBaseListener(mBaseListener);
+		SensorManager mSensorManager =
+				(SensorManager) getSystemService(Context.SENSOR_SERVICE);
+		mSensorManager.registerListener(mSensorListener,
+				mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
+				SensorManager.SENSOR_DELAY_UI);
 	}
 
 	// Quit Unity
